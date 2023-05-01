@@ -1,0 +1,157 @@
+# 1:
+
+db.people.insertOne({
+    first_name: “Kim”,
+    last_name: “Johnson”,
+    email: “k.johnson@dmail.com",
+    gender: "Female",
+    age: 28,
+    state: "California",
+    children: []
+})
+
+# 2:
+
+db.people.insertOne({
+    first_name: “Buddy”,
+    last_name: “Day”,
+    email: “b.day@dmail.com",
+    gender: "Male",
+    age: 42,
+    state: "Texas",
+    children: [
+        {
+            first_name: "Emily",
+            gender: "Female",
+            age: 7
+        },
+        {
+            first_name: "Jacob",
+            gender: "Male",
+            age: 5
+        }
+    ]
+})
+
+# 3:
+
+db.people.updateOne(
+    { first_name: "Clarence" },
+    { $set: { state: "South Dakota" } }
+)
+
+# 4:
+
+db.people.updateOne(
+    { first_name: "Rebecca", last_name: "Hayes" },
+    { $unset: { email: "" } }
+)
+
+
+# 5:
+
+db.people.updateMany(
+    { state: "Missouri" },
+    { $inc: { age: 1 } }
+)
+
+# 6:
+
+db.people.replaceOne(
+    { first_name: "Jerry", last_name: "Baker" },
+    {
+        first_name: "Jerry",
+        last_name: "Baker-Mendez",
+        email: "jerry@classic.ly",
+        gender: "Male",
+        age: 28,
+        state: "Vermont",
+        children: [
+            { name: "Alan", age: 18 },
+            { name: "Jenny", age: 3 }
+        ]
+    }
+)
+
+# 7:
+
+db.people.deleteOne(
+    { first_name: "Wanda", last_name: "Bowman" }
+)
+
+# 8: 
+
+db.people.deleteMany(
+    { email: { $exists: false } }
+)
+
+# 9:
+
+db.submissions.insertMany([
+    {
+        title: "The River Bend",
+        upvotes: 10,
+        downvotes: 2,
+        artist: db.people.findOne({first_name: "Anna", last_name: "Howard"})._id
+    },
+    {
+        title: "Nine Lives",
+        upvotes: 7,
+        downvotes: 0,
+        artist: db.people.findOne({first_name: "Scott", last_name: "Henderson"})._id
+    },
+    {
+        title: "Star Bright",
+        upvotes: 19,
+        downvotes: 3,
+        artist: db.people.findOne({first_name: "Andrea", last_name: "Burke"})._id
+    },
+    {
+        title: "Why Like This?",
+        upvotes: 1,
+        downvotes: 5,
+        artist: db.people.findOne({first_name: "Steven", last_name: "Marshall"})._id
+    },
+    {
+        title: "Non Sequitur",
+        upvotes: 11,
+        downvotes: 1,
+        artist: db.people.findOne({first_name: "Gerald", last_name: "Bailey"})._id
+    }
+]) 
+
+# 10:
+
+db.submissions.updateOne( { title: "The River Bend" }, { $inc: { upvotes: 2 } } )
+
+# 11:
+
+db.submissions.updateMany(
+    { upvotes: { $gte: 10 } },
+    { $set: { round2: true } }
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
